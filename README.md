@@ -3,6 +3,7 @@
 A small Python library for building options strategies.
 
 It lets you define a strategy leg by leg, calculate the payoff at expiration, and compute max profit and max loss.
+All legs are assumed to share the same expiration.
 
 ## Installation
 
@@ -63,8 +64,10 @@ plt.show()
 
 ## Notes
 
+- `spot_range` controls the simulated range around `S0` as a decimal percentage.
 - `underlying_prices` represents possible underlying prices at expiration.
 - `quantity` is the number of contracts for option legs and the number of shares for underlying legs.
 - `contract_size` applies only to option legs.
 - `strategy.net_cost()` computes the net cost of entering the position.
 - `strategy.max_profit_and_loss()` computes max profit and max loss at expiration.
+- All legs are assumed to share the same expiration.

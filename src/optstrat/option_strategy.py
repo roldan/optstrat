@@ -28,7 +28,9 @@ class Leg:
         return f'{side} {self.kind.value} {self.K} @ {self.entry_price}{qty}'
 
 class OptionStrategy:
-    """Build an option strategy leg by leg and compute payoff at expiration.
+    """Build an option strategy and compute payoff at a single expiration.
+
+    All legs are assumed to share the same expiration.
 
     Quantity semantics:
     - option legs use `quantity` as number of contracts
@@ -37,11 +39,11 @@ class OptionStrategy:
     `contract_size` applies only to option legs.
     """
 
-    def __init__(self, name, S0, price_range_ratio=0.5, step=1, contract_size=100):
+    def __init__(self, name, S0, spot_range=0.5, step=1, contract_size=100):
         self.name = name
         self.S0 = S0
         self.contract_size = contract_size
-        self.underlying_prices = np.arange(S0 * price_range_ratio, S0 * (1 + price_range_ratio), step)
+        self.underlying_prices = np.arange(S0 * spot_range, S0 * (1 + spot_range), step)
         self.payoffs = np.zeros_like(self.underlying_prices, dtype=float)
         self.legs = []
            
